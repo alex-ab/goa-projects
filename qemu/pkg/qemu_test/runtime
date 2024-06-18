@@ -1,0 +1,71 @@
+<runtime ram="2048M" caps="1000" binary="qemu-system-aarch64">
+
+	<requires>
+		<timer/>
+		<rtc/>
+	</requires>
+
+	<config ld_verbose="yes">
+		<libc stdout="/dev/log" stderr="/dev/log" pipe="/pipe" rtc="/dev/rtc">
+			<mmap align_log2="24"/> <!-- 16M alignment -->
+			<pthread verbose="yes" placement="single-cpu"/>
+		</libc>
+
+		<vfs>
+			<dir name="dev">
+				<rtc/> <log/>
+			</dir>
+			<dir name="pipe">
+				<pipe/>
+			</dir>
+			<dir name="var">
+				<dir name="run">
+					<dir name="log">
+						<dir name="boot">
+<!--
+-->
+							<rom name="image-hw-log.elf"/>
+						</dir>
+					</dir>
+				</dir>
+			</dir>
+		</vfs>
+
+		<arg value="qemu-system-aarch64"/>
+		<arg value="-M"/>         <arg value="raspi3b"/>
+		<arg value="-m"/>         <arg value="1024"/>
+		<arg value="-nographic"/>
+<!--
+		<arg value="-d"/>         <arg value="cpu"/>
+		<arg value="-d"/>         <arg value="int"/>
+		<arg value="-d"/>         <arg value="trace:qemu_mutex_lock"/>
+		<arg value="-d"/>         <arg value="trace:qemu_mutex_unlock"/>
+ -->
+		<arg value="-serial"/>    <arg value="null"/>
+		<arg value="-serial"/>    <arg value="mon:stdio"/>
+		<arg value="-kernel"/>    <arg value="var/run/log/boot/image-hw-log.elf"/>
+<!--
+-->
+<!--
+		<arg value="-machine"/>      <arg value="help"/>
+-->
+	</config>
+
+	<content>
+<!--
+		<rom label="qemu-system-arm"/>
+-->
+		<rom label="qemu-system-aarch64"/>
+		<rom label="ffi.lib.so"/>
+		<rom label="glib.lib.so"/>
+		<rom label="libc.lib.so"/>
+		<rom label="libc_ucontext.lib.so"/>
+		<rom label="libiconv.lib.so"/>
+		<rom label="libm.lib.so"/>
+		<rom label="posix.lib.so"/>
+		<rom label="vfs.lib.so"/>
+		<rom label="vfs_pipe.lib.so"/>
+		<rom label="zlib.lib.so"/>
+		<rom label="image-hw-log.elf"/>
+	</content>
+</runtime>
