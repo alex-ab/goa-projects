@@ -1,0 +1,11 @@
+genodelabs/src/posix
+alex-ab/src/libc
+genodelabs/src/vfs
+genodelabs/src/vfs_pipe
+genodelabs/src/stdcxx
+genodelabs/src/libiconv
+genodelabs/src/zlib
+genodelabs/src/glib
+genodelabs/src/ffi
+alex-ab/src/libc_ucontext
+alex-ab/raw/qemu_images
