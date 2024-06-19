@@ -1,0 +1,39 @@
+<runtime ram="128M" caps="1000" binary="qemu-system-arm">
+
+	<requires>
+		<timer/>
+		<rtc/>
+	</requires>
+
+	<config>
+		<libc stdout="/dev/log"
+		      stderr="/dev/log"
+		      pipe="/pipe"
+		      rtc="/dev/rtc" />
+
+		<vfs>
+			<dir name="dev">
+				<rtc/> <log/>
+			</dir>
+			<dir name="pipe">
+				<pipe/>
+			</dir>
+		</vfs>
+		<arg value="qemu-system-aarch64"/>
+		<arg value="--help"/>
+	</config>
+
+	<content>
+		<rom label="qemu-system-arm"/>
+		<rom label="qemu-system-aarch64"/>
+		<rom label="ffi.lib.so"/>
+		<rom label="glib.lib.so"/>
+		<rom label="libc.lib.so"/>
+		<rom label="libiconv.lib.so"/>
+		<rom label="libm.lib.so"/>
+		<rom label="posix.lib.so"/>
+		<rom label="vfs.lib.so"/>
+		<rom label="vfs_pipe.lib.so"/>
+		<rom label="zlib.lib.so"/>
+	</content>
+</runtime>

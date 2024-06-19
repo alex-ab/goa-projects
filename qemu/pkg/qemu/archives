@@ -1,0 +1,9 @@
+genodelabs/src/posix
+genodelabs/src/libc
+genodelabs/src/vfs
+genodelabs/src/vfs_pipe
+genodelabs/src/stdcxx
+genodelabs/src/libiconv
+genodelabs/src/zlib
+alex-ab/src/glib
+alex-ab/src/ffi

@@ -1,0 +1,12 @@
+--- a/util/coroutine-ucontext.c
++++ b/util/coroutine-ucontext.c
+@@ -194,7 +194,8 @@
+      */
+ 
+     if (getcontext(&uc) == -1) {
++          printf("no get context support .oO\n");
++//        abort();
+-        abort();
+     }
+ 
+     co = g_malloc0(sizeof(*co));

@@ -1,4 +1,4 @@
---target-list=arm-softmmu
+--target-list=arm-softmmu,aarch64-softmmu
 --without-default-features
 --disable-werror
 --disable-pie

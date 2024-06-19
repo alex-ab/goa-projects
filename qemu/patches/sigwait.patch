@@ -1,0 +1,33 @@
+--- a/accel/dummy-cpus.c
++++ b/accel/dummy-cpus.c
+@@ -45,8 +45,15 @@
+         bql_unlock();
+ #ifndef _WIN32
+         do {
++#if 1
++            perror("Unsupported sigwait");
++            exit(1);
++
++            r = -1;
++#else
+             int sig;
+             r = sigwait(&waitset, &sig);
++#endif
+         } while (r == -1 && (errno == EAGAIN || errno == EINTR));
+         if (r == -1) {
+             perror("sigwait");
+--- a/util/compatfd.c
++++ b/util/compatfd.c
+@@ -33,7 +33,12 @@
+         int sig;
+         int err;
+ 
++#if 1
++    perror("no sigwait support\n");
++    return -1;
++#else
+         err = sigwait(&info->mask, &sig);
++#endif
+         if (err != 0) {
+             if (errno == EINTR) {
+                 continue;
