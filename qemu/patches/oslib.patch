@@ -1,0 +1,47 @@
+--- a/util/oslib-posix.c
++++ b/util/oslib-posix.c
+@@ -97,10 +97,16 @@
+ #if defined(__linux__)
+     return syscall(SYS_gettid);
+ #elif defined(__FreeBSD__)
++#if 1
++    perror("qemu_get_thread_id not implemented");
++    exit(1);
++    return 42;
++#else
+     /* thread id is up to INT_MAX */
+     long tid;
+     thr_self(&tid);
+     return (int)tid;
++#endif
+ #elif defined(__NetBSD__)
+     return _lwp_self();
+ #elif defined(__OpenBSD__)
+@@ -635,6 +641,10 @@
+     char *name = NULL;
+ 
+ #if defined(__FreeBSD__)
++#if 1
++    perror("qemu_get_pid_name not implemented");
++    exit(1);
++#else
+     /* BSDs don't have /proc, but they provide a nice substitute */
+     struct kinfo_proc *proc = kinfo_getproc(pid);
+ 
+@@ -642,6 +652,7 @@
+ //        name = g_strdup(proc->ki_comm);
+         free(proc);
+     }
++#endif
+ #else
+     /* Assume a system with reasonable procfs */
+     char *pid_path;
+@@ -705,7 +705,7 @@
+     /* Stack grows down -- guard page at the bottom. */
+     if (mprotect(ptr, pagesz, PROT_NONE) != 0) {
+         perror("failed to set up stack guard page");
+-        abort();
++        //abort();
+     }
+ 
+ #ifdef CONFIG_DEBUG_STACK_USAGE
