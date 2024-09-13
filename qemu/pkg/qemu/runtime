@@ -1,15 +1,14 @@
-<runtime ram="128M" caps="1000" binary="qemu-system-arm">
+<runtime ram="2048M" caps="1000" binary="qemu-system-aarch64">
 
 	<requires>
 		<timer/>
 		<rtc/>
 	</requires>
 
-	<config>
-		<libc stdout="/dev/log"
-		      stderr="/dev/log"
-		      pipe="/pipe"
-		      rtc="/dev/rtc" />
+	<config ld_verbose="yes">
+		<libc stdout="/dev/log" stderr="/dev/log" pipe="/pipe" rtc="/dev/rtc">
+			 <pthread verbose="yes" placement="single-cpu"/>
+		</libc>
 
 		<vfs>
 			<dir name="dev">
@@ -19,12 +18,25 @@
 				<pipe/>
 			</dir>
 		</vfs>
+
 		<arg value="qemu-system-aarch64"/>
-		<arg value="--help"/>
+<!--
+		<arg value="-nographic"/>
+		<arg value="-serial"/> <arg value="null"/>
+		<arg value="-serial"/> <arg value="mon:stdio"/>
+		<arg value="-kernel"/> <arg value="var/run/log/boot/image-hw.elf"/>
+-->
+		<arg value="-M"/>      <arg value="raspi3b"/>
+		<arg value="-m"/>      <arg value="1024"/>
+<!--
+		<arg value="-machine"/>      <arg value="help"/>
+-->
 	</config>
 
 	<content>
+<!--
 		<rom label="qemu-system-arm"/>
+-->
 		<rom label="qemu-system-aarch64"/>
 		<rom label="ffi.lib.so"/>
 		<rom label="glib.lib.so"/>
