@@ -41,6 +41,7 @@
 		<rom label="ffi.lib.so"/>
 		<rom label="glib.lib.so"/>
 		<rom label="libc.lib.so"/>
+		<rom label="libc_ucontext.lib.so"/>
 		<rom label="libiconv.lib.so"/>
 		<rom label="libm.lib.so"/>
 		<rom label="posix.lib.so"/>
