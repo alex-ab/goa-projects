@@ -11,7 +11,6 @@ PATCHES := $(addprefix patches/,build.patch \
                                 oslib.patch \
                                 sigwait.patch \
                                 openpty.patch \
-                                ucontext.patch \
                                 include_hack.patch)
 PATCH_OPT := -p1 -d src
 
