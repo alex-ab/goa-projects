@@ -1,0 +1,16 @@
+--- a/util/osdep.c
++++ b/util/osdep.c
+@@ -80,7 +80,12 @@
+     return 0;
+ #else
+     if (mprotect(addr, size, prot)) {
+-        error_report("%s: mprotect failed: %s", __func__, strerror(errno));
++        error_report("%s: mprotect failed: %s prot=%s%s%s%s",
++                     __func__, strerror(errno),
++                     prot  & PROT_READ  ? "r" : "",
++                     prot  & PROT_WRITE ? "w" : "",
++                     prot  & PROT_EXEC  ? "x" : "",
++                     prot == PROT_NONE  ? "none" : "");
+         return -1;
+     }
+     return 0;

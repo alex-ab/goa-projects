@@ -12,6 +12,9 @@ PATCHES := $(addprefix patches/,build.patch \
                                 sigwait.patch \
                                 openpty.patch \
                                 ucontext.patch \
+                                mprotect.patch \
+                                tcg_region.patch \
+                                chardev_stdio.patch \
                                 include_hack.patch)
 PATCH_OPT := -p1 -d src
 
