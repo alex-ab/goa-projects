@@ -1,13 +1,33 @@
 --- a/util/oslib-posix.c
 +++ b/util/oslib-posix.c
-@@ -97,10 +97,16 @@
+@@ -92,15 +92,36 @@
+ static QemuMutex page_mutex;
+ static QemuCond page_cond;
+ 
++/* Genode thread base ABI */
++extern unsigned long _ZN6Genode6Thread23stack_area_virtual_baseEv(void);
++extern unsigned long _ZN6Genode6Thread18stack_virtual_sizeEv(void);
++
+ int qemu_get_thread_id(void)
+ {
  #if defined(__linux__)
      return syscall(SYS_gettid);
  #elif defined(__FreeBSD__)
 +#if 1
-+    perror("qemu_get_thread_id not implemented");
-+    exit(1);
-+    return 42;
++    /* on Genode stacks are max 1M - XXX potential to break unnoticed */
++    int thread_ids_base = _ZN6Genode6Thread23stack_area_virtual_baseEv() /
++                          _ZN6Genode6Thread18stack_virtual_sizeEv();
++    int thread_id_base = ((unsigned long)&thread_ids_base) /
++                         _ZN6Genode6Thread18stack_virtual_sizeEv();
++
++    if (thread_id_base < thread_ids_base || thread_id_base - thread_ids_base >= 256) {
++        perror("qemu_get_thread_id calculation failed");
++        exit(1);
++    }
++
++    printf("%s %d\n", __func__, thread_id_base - thread_ids_base);
++
++    return thread_id_base - thread_ids_base;
 +#else
      /* thread id is up to INT_MAX */
      long tid;
