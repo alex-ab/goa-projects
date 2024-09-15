@@ -7,7 +7,8 @@
 
 	<config ld_verbose="yes">
 		<libc stdout="/dev/log" stderr="/dev/log" pipe="/pipe" rtc="/dev/rtc">
-			 <pthread verbose="yes" placement="single-cpu"/>
+			<mmap align_log2="24"/> <!-- 16M alignment -->
+			<pthread verbose="yes" placement="single-cpu"/>
 		</libc>
 
 		<vfs>
@@ -20,14 +21,14 @@
 		</vfs>
 
 		<arg value="qemu-system-aarch64"/>
-<!--
+		<arg value="-M"/>      <arg value="raspi3b"/>
+		<arg value="-m"/>      <arg value="1024"/>
 		<arg value="-nographic"/>
 		<arg value="-serial"/> <arg value="null"/>
 		<arg value="-serial"/> <arg value="mon:stdio"/>
 		<arg value="-kernel"/> <arg value="var/run/log/boot/image-hw.elf"/>
+<!--
 -->
-		<arg value="-M"/>      <arg value="raspi3b"/>
-		<arg value="-m"/>      <arg value="1024"/>
 <!--
 		<arg value="-machine"/>      <arg value="help"/>
 -->
