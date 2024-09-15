@@ -1,12 +1,11 @@
 --- a/util/coroutine-ucontext.c
 +++ b/util/coroutine-ucontext.c
-@@ -194,7 +194,8 @@
+@@ -193,6 +193,8 @@
+      * everything else.
       */
  
++    uc.uc_mcontext.mc_len = sizeof(uc.uc_mcontext);
++
      if (getcontext(&uc) == -1) {
-+          printf("no get context support .oO\n");
-+//        abort();
--        abort();
+         abort();
      }
- 
-     co = g_malloc0(sizeof(*co));
