@@ -56,12 +56,50 @@
  #else
      /* Assume a system with reasonable procfs */
      char *pid_path;
-@@ -705,7 +705,7 @@
-     /* Stack grows down -- guard page at the bottom. */
-     if (mprotect(ptr, pagesz, PROT_NONE) != 0) {
-         perror("failed to set up stack guard page");
--        abort();
-+        //abort();
-     }
+@@ -682,6 +682,9 @@
+ }
  
- #ifdef CONFIG_DEBUG_STACK_USAGE
+ 
++extern void * _ZN6Genode6Thread21alloc_secondary_stackEPKcm(void * thread, char const *name, size_t stack_size);
++extern void * _ZN6Genode6Thread6myselfEv(void);
++
+ void *qemu_alloc_stack(size_t *sz)
+ {
+     void *ptr;
+@@ -690,6 +693,9 @@
+     void *ptr2;
+ #endif
+     size_t pagesz = qemu_real_host_page_size();
++
++    printf("%s pagesz=%lu sz=%lu\n", __func__, pagesz, *sz);
++
+ #ifdef _SC_THREAD_STACK_MIN
+     /* avoid stacks smaller than _SC_THREAD_STACK_MIN */
+     long min_stack_sz = sysconf(_SC_THREAD_STACK_MIN);
+@@ -700,6 +706,26 @@
+     /* allocate one extra page for the guard page */
+     *sz += pagesz;
+ 
++#if 1 /* Genode stack allocation style via using base ABI directly */
++    {
++        void * gt_myself  = _ZN6Genode6Thread6myselfEv();
++        size_t stack_size = MIN(_ZN6Genode6Thread18stack_virtual_sizeEv() - 2 * 4096,
++                                *sz);
++
++        ptr = _ZN6Genode6Thread21alloc_secondary_stackEPKcm(gt_myself,
++                                                            "ucontext",
++                                                            stack_size);
++
++        uintptr_t align_ptr = ((uintptr_t)ptr) & ~0xffful;
++        ptr = (void *)(align_ptr - stack_size + (align_ptr ? 4096 : 0));
++        *sz = stack_size - (align_ptr ? 4096 : 0);
++
++        printf("%s better ptr %p+%lx -> %p\n", __func__, ptr, *sz);
++    }
++
++    return ptr;
++#endif
++
+     flags = MAP_PRIVATE | MAP_ANONYMOUS;
+ #if defined(MAP_STACK) && defined(__OpenBSD__)
+     /* Only enable MAP_STACK on OpenBSD. Other OS's such as
