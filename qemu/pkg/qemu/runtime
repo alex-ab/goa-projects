@@ -18,6 +18,15 @@
 			<dir name="pipe">
 				<pipe/>
 			</dir>
+			<dir name="var">
+				<dir name="run">
+					<dir name="log">
+						<dir name="boot">
+							<rom name="image-hw-log.elf"/>
+						</dir>
+					</dir>
+				</dir>
+			</dir>
 		</vfs>
 
 		<arg value="qemu-system-aarch64"/>
@@ -26,7 +35,7 @@
 		<arg value="-nographic"/>
 		<arg value="-serial"/> <arg value="null"/>
 		<arg value="-serial"/> <arg value="mon:stdio"/>
-		<arg value="-kernel"/> <arg value="var/run/log/boot/image-hw.elf"/>
+		<arg value="-kernel"/> <arg value="var/run/log/boot/image-hw-log.elf"/>
 <!--
 -->
 <!--
@@ -49,5 +58,6 @@
 		<rom label="vfs.lib.so"/>
 		<rom label="vfs_pipe.lib.so"/>
 		<rom label="zlib.lib.so"/>
+		<rom label="image-hw-log.elf"/>
 	</content>
 </runtime>
