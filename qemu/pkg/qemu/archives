@@ -5,6 +5,7 @@ genodelabs/src/vfs_pipe
 genodelabs/src/stdcxx
 genodelabs/src/libiconv
 genodelabs/src/zlib
-alex-ab/src/glib
-alex-ab/src/ffi
+genodelabs/src/glib
+genodelabs/src/ffi
 alex-ab/src/libc_ucontext
+alex-ab/raw/qemu_images
