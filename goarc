@@ -1,2 +1,7 @@
-set version(ssumpf/api/qt5_declarative)   2024-04-22
-set version(ssumpf/pkg/ubuntu_ui_toolkit) 2024-04-22
+set versions_from_genode_dir /home/alex/genode/sculpt.t460p
+set depot_dir                [file join $versions_from_genode_dir depot]
+set depot_user               genodelabs
+#set depot_user               alex-ab
+# set run_depot_user           ssumpf_test
+set public_dir     /home/alex/genode/sculpt.t460p/public
+set common_var_dir /home/alex/genode/goa.projects/var
