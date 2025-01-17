@@ -1,5 +1,5 @@
---- a/chardev/char-stdio.c
-+++ b/chardev/char-stdio.c
+--- a/qemu/chardev/char-stdio.c
++++ b/qemu/chardev/char-stdio.c
 @@ -104,8 +104,11 @@
      old_fd0_flags = fcntl(0, F_GETFL);
      tcgetattr(0, &oldtty);

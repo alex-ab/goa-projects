@@ -1,4 +1,0 @@
---target-list=aarch64-softmmu
---without-default-features
---disable-werror
---disable-pie

@@ -6,9 +6,8 @@ genodelabs/src/vfs_pipe
 genodelabs/src/stdcxx
 genodelabs/src/libiconv
 genodelabs/src/zlib
-genodelabs/src/glib
-genodelabs/src/ffi
+alex-ab/src/glib
+alex-ab/src/ffi
 alex-ab/src/libc_ucontext
 genodelabs/src/init
 genodelabs/src/fs_rom
-genodelabs/src/fs_report

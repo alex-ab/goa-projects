@@ -1,7 +1,5 @@
-diff --git a/Makefile b/Makefile
-index 02a257584..e3b31be73 100644
---- a/Makefile
-+++ b/Makefile
+--- a/qemu/Makefile
++++ b/qemu/Makefile
 @@ -145,9 +145,10 @@ NINJAFLAGS = \
          $(if $V,-v) \
          $(if $(MAKE.n), -n) \
@@ -24,10 +22,8 @@ index 02a257584..e3b31be73 100644
  ifneq ($(filter $(ninja-targets), $(ninja-cmd-goals)),)
  	+$(if $(MAKE.nq),@:,$(quiet-@)$(NINJA) $(NINJAFLAGS) \
  	   $(sort $(filter $(ninja-targets), $(ninja-cmd-goals))) | cat)
-diff --git a/chardev/char-pty.c b/chardev/char-pty.c
-index cc2f7617f..2e0a0400f 100644
---- a/chardev/char-pty.c
-+++ b/chardev/char-pty.c
+--- a/qemu/chardev/char-pty.c
++++ b/qemu/chardev/char-pty.c
 @@ -215,7 +215,7 @@ static void char_pty_finalize(Object *obj)
  #elif defined CONFIG_BSD
  # include <termios.h>
@@ -37,10 +33,8 @@ index cc2f7617f..2e0a0400f 100644
  # else
  #  include <util.h>
  # endif
-diff --git a/chardev/meson.build b/chardev/meson.build
-index 70070a827..d1d32f0fb 100644
---- a/chardev/meson.build
-+++ b/chardev/meson.build
+--- a/qemu/chardev/meson.build
++++ b/qemu/chardev/meson.build
 @@ -21,7 +21,6 @@ if host_os == 'windows'
  else
    chardev_ss.add(files(
@@ -49,10 +43,8 @@ index 70070a827..d1d32f0fb 100644
        'char-pty.c',
      ), util)
  endif
-diff --git a/meson.build b/meson.build
-index 91a0aa64c..6b4632deb 100644
---- a/meson.build
-+++ b/meson.build
+--- a/qemu/meson.build
++++ b/qemu/meson.build
 @@ -667,7 +667,7 @@ endif
  #####################################
  
@@ -101,10 +93,8 @@ index 91a0aa64c..6b4632deb 100644
  
  libaio = not_found
  if not get_option('linux_aio').auto() or have_block
-diff --git a/meson_options.txt b/meson_options.txt
-index 0a99a059e..87c6f7a2b 100644
---- a/meson_options.txt
-+++ b/meson_options.txt
+--- a/qemu/meson_options.txt
++++ b/qemu/meson_options.txt
 @@ -366,5 +366,5 @@ option('qemu_ga_distro', type: 'string', value: 'Linux',
  option('qemu_ga_version', type: 'string', value: '',
         description: 'version number for qemu-ga installer')
@@ -112,19 +102,8 @@ index 0a99a059e..87c6f7a2b 100644
 -option('hexagon_idef_parser', type : 'boolean', value : true,
 +option('hexagon_idef_parser', type : 'boolean', value : false,
         description: 'use idef-parser to automatically generate TCG code for the Hexagon frontend')
-diff --git a/roms/edk2/EmulatorPkg/Unix/Host/X11IncludeHack b/roms/edk2/EmulatorPkg/Unix/Host/X11IncludeHack
-index f7ab103f6..2995a4d0e 120000
---- a/roms/edk2/EmulatorPkg/Unix/Host/X11IncludeHack
-+++ b/roms/edk2/EmulatorPkg/Unix/Host/X11IncludeHack
-@@ -1 +1 @@
--/opt/X11/include
-\ No newline at end of file
-+dummy
-\ No newline at end of file
-diff --git a/tests/meson.build b/tests/meson.build
-index 0a6f96f8f..b1e653d04 100644
---- a/tests/meson.build
-+++ b/tests/meson.build
+--- a/qemu/tests/meson.build
++++ b/qemu/tests/meson.build
 @@ -83,5 +83,5 @@ endif
  subdir('plugin')
  subdir('unit')
@@ -132,10 +111,8 @@ index 0a6f96f8f..b1e653d04 100644
 -subdir('qtest')
 +#subdir('qtest')
  subdir('migration')
-diff --git a/util/oslib-posix.c b/util/oslib-posix.c
-index e76441695..2d6dc7f07 100644
---- a/util/oslib-posix.c
-+++ b/util/oslib-posix.c
+--- a/qemu/util/oslib-posix.c
++++ b/qemu/util/oslib-posix.c
 @@ -51,7 +51,6 @@
  #ifdef __FreeBSD__
  #include <sys/thr.h>

@@ -1,5 +1,5 @@
---- a/tcg/region.c
-+++ b/tcg/region.c
+--- a/qemu/tcg/region.c
++++ b/qemu/tcg/region.c
 @@ -556,6 +556,9 @@
  {
      void *buf;

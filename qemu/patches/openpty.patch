@@ -1,5 +1,5 @@
---- a/chardev/char-pty.c
-+++ b/chardev/char-pty.c
+--- a/qemu/chardev/char-pty.c
++++ b/qemu/chardev/char-pty.c
 @@ -305,9 +305,14 @@
  #define q_ptsname(x) ptsname(x)
  #endif

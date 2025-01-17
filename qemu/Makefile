@@ -1,0 +1,42 @@
+all: qemu/build/qemu-system-arm \
+     qemu/build/qemu-system-aarch64 \
+     qemu/build/qemu-system-x86_64 \
+     qemu/build/qemu-system-i386
+
+qemu/build/qemu-system-arm:     qemu/make_run
+qemu/build/qemu-system-aarch64: qemu/make_run
+qemu/build/qemu-system-x86_64:  qemu/make_run
+qemu/build/qemu-system-i386:    qemu_make_run
+
+qemu/make_run: qemu/configure_done
+	cd qemu && make -j$(shell grep -c ^processor /proc/cpuinfo)
+
+qemu/configure_done: Makefile
+	cd qemu && \
+	./configure --prefix=/ \
+	            --host=x86_64-pc-elf \
+	            --target-list=i386-softmmu,x86_64-softmmu,arm-softmmu,aarch64-softmmu \
+	            --without-default-features \
+	            --disable-werror \
+	            --disable-pie \
+	            --extra-cflags="${CFLAGS}" \
+	            --extra-cflags=-D__FreeBSD__ \
+	            --extra-cflags=-DGLIB_MAJOR_VERSION=2 \
+	            --extra-cflags=-DGLIB_MINOR_VERSION=56 \
+	            --extra-cflags=-DGLIB_MICRO_VERSION=4 \
+	            --extra-cflags=-DG_DIR_SEPARATOR_S=\"/\" \
+	            --extra-cflags=-DG_SEARCHPATH_SEPARATOR_S=\":\" \
+	            --extra-cflags=-DGLIB_CHARSETALIAS_DIR=\"/\" \
+	            --extra-cflags=-Wno-suggest-attribute=format \
+	            --extra-cxxflags="${CXXFLAGS}" \
+	            --extra-ldflags="${LDFLAGS}" \
+	            --extra-ldflags="${LDLIBS}" \
+	            --cross-prefix=${CROSS_DEV_PREFIX} \
+	&& \
+	touch configure_done
+
+#	            --extra-cflags=-DG_DIR_SEPARATOR=\"/\" \
+	            --extra-cflags=-DG_SEARCHPATH_SEPARATOR=\":\" \
+
+.phony: qemu/make_run
+.NOTPARALLEL: qemu/make_run qemu/configure_done

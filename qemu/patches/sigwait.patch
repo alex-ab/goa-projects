@@ -1,5 +1,5 @@
---- a/accel/dummy-cpus.c
-+++ b/accel/dummy-cpus.c
+--- a/qemu/accel/dummy-cpus.c
++++ b/qemu/accel/dummy-cpus.c
 @@ -46,7 +46,9 @@
  #ifndef _WIN32
          do {
@@ -10,8 +10,8 @@
          } while (r == -1 && (errno == EAGAIN || errno == EINTR));
          if (r == -1) {
              perror("sigwait");
---- a/util/compatfd.c
-+++ b/util/compatfd.c
+--- a/qemu/util/compatfd.c
++++ b/qemu/util/compatfd.c
 @@ -33,7 +33,10 @@
          int sig;
          int err;

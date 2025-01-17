@@ -1,5 +1,5 @@
---- a/util/oslib-posix.c
-+++ b/util/oslib-posix.c
+--- a/qemu/util/oslib-posix.c
++++ b/qemu/util/oslib-posix.c
 @@ -92,15 +92,36 @@
  static QemuMutex page_mutex;
  static QemuCond page_cond;

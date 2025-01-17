@@ -1,5 +1,5 @@
---- a/util/coroutine-ucontext.c
-+++ b/util/coroutine-ucontext.c
+--- a/qemu/util/coroutine-ucontext.c
++++ b/qemu/util/coroutine-ucontext.c
 @@ -193,6 +193,8 @@
       * everything else.
       */
