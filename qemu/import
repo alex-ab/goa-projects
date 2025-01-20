@@ -12,6 +12,7 @@ PATCHES := $(addprefix patches/,build.patch \
                                 sigwait.patch \
                                 openpty.patch \
                                 ucontext.patch \
+                                mmap_fixed.patch \
                                 mprotect.patch \
                                 tcg_region.patch \
                                 chardev_stdio.patch \
