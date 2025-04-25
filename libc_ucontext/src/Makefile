@@ -4,7 +4,7 @@ all: build/libc_ucontext.lib.so
 
 build/libc_ucontext.lib.so: Makefile build/getcontext.o build/swapcontext.o
 	$(CC) -o build/libc_ucontext.lib.so -Wl,-soname=libc_ucontext.lib.so \
-	      -shared $(subst ",,$(MAKE_SHARED_LINKER_FLAGS)) \
+	      -shared $(MAKE_SHARED_LINKER_FLAGS) \
 	      -Wl,-z noexecstack -Wl,--hash-style=sysv \
 	      build/getcontext.o build/swapcontext.o
 
